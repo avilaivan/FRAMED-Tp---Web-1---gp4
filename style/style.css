@@ -1,10 +1,3 @@
-@font-face {
-    font-family: 'MiFuente';
-    src: url('../font/Coolvetica\ Rg.otf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
 html {
     scroll-behavior: smooth;
 }
