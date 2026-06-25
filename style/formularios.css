@@ -1,0 +1,179 @@
+:root {
+    --color-borde: #7aa887;
+    --color-texto-principal: #ffffff;
+    --color-texto-secundario: #b3b3b3;
+    --transicion: 0.3s ease;
+    --fuente-texto: Arial;
+    --color-caja: #333333;
+    --color-boton: #5fb878;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'MiFuente', sans-serif;
+}
+
+p, a, label, input, button {
+    font-family: var(--fuente-texto), Helvetica, sans-serif;
+}
+
+.login-container { 
+    padding-top: 3.75rem;
+    padding-bottom: 7.8125rem;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.caja-login {
+    width: 26.25rem;
+    background-color: var(--color-caja);
+    border-radius: 0.75rem;
+    padding: 1.875rem 2.5rem;
+    color: var(--color-texto-principal);
+}
+
+.tabs-header {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 2px solid var(--color-borde);
+    margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-texto-secundario);
+    font-size: 1.125rem;
+    font-weight: bold;
+    padding: 0.625rem 1rem;
+    cursor: pointer;
+    transition: color var(--transicion);
+}
+
+.tab-btn.active {
+    color: var(--color-texto-principal);
+    border-bottom: 3px solid var(--color-boton);
+    margin-bottom: -2px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.campo-formulario {
+    width: 100%;
+    margin: 1.25rem 0;
+    display: block;
+}
+
+.campo-formulario span {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.campo-formulario input {
+    width: 100%;
+    height: 3.125rem;
+    background: transparent;
+    outline: none;
+    border: 0.125rem solid var(--color-borde);
+    border-radius: 2.5rem;
+    font-size: 1rem;
+    color: var(--color-texto-principal);
+    padding: 0 1.25rem;
+}
+
+.caja-login input::placeholder {
+    color: var(--color-texto-secundario);
+}
+
+.recordarme-recuperar-password,
+.terminos-condiciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.90625rem;
+    margin: 0.5rem 0 1.25rem;
+}
+
+.recordarme-recuperar-password label input,
+.terminos-condiciones label input {
+    accent-color: var(--color-texto-principal);
+    cursor: pointer;
+}
+
+.recordarme-recuperar-password a,
+.terminos-condiciones a {
+    text-decoration: none;
+    color: var(--color-texto-principal);
+}
+
+.recordarme-recuperar-password a:hover,
+.terminos-condiciones a:hover {
+    text-decoration: underline;
+}
+
+.btn-loguear {
+    display: inline-block;
+    width: 100%;
+    padding: 0.875rem;
+    background-color: var(--color-boton);
+    color: var(--color-texto-principal);
+    border: none;
+    border-radius: 1.5625rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color var(--transicion), transform var(--transicion);
+}
+
+.btn-loguear:hover {
+    opacity: 0.8;
+    transform: translateY(-0.125rem);
+}
+
+@media screen and (max-width: 48rem) {
+    .login-container {
+        padding-top: 1.875rem;
+        padding-bottom: 3.75rem;
+        align-items: flex-start;
+    }
+
+    .caja-login {
+        width: 90%;
+        max-width: 23.75rem;
+        padding: 1.5rem 1.25rem;
+        margin: 0 auto;
+    }
+
+    .tab-btn {
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+
+    .campo-formulario {
+        margin: 0.9375rem 0;
+    }
+
+    .campo-formulario input {
+        font-size: 0.95rem;
+        height: 2.8125rem;
+    }
+
+    .recordarme-recuperar-password,
+    .terminos-condiciones {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.625rem;
+        font-size: 0.8125rem;
+    }
+
+    .btn-loguear {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+}

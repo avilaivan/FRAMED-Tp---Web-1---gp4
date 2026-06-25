@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Framed | Red social y diario de cine</title>
+
+    <link rel="shortcut icon" href="../img/favicon - framed.png" type="image/x-icon" />
+
+    <link rel="stylesheet" href="../style/style.css" />
+    <link rel="stylesheet" href="../style/comunidad.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <main>
+        
+        <section class="hero-carrusel">
+            <div class="resenias-titulo hero-titulo">
+                <h2>Películas recomendadas por la comunidad</h2>
+            </div>
+            
+            <div class="carrusel-wrapper">
+                <button class="btn-carrusel prev" id="btn-prev-carrusel"><i class="fa-solid fa-chevron-left"></i></button>
+                
+                <div class="carrusel-track-container">
+                    <div class="carrusel-track" id="carrusel-track">
+                        </div>
+                </div>
+
+                <button class="btn-carrusel next" id="btn-next-carrusel"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <div class="contenido-principal">
+
+            <section class="columna-principal">
+
+                <section class="resenias" id="resenias-container">
+
+                    <div class="resenias-titulo">
+                        <h2>Reseñas</h2>
+                    </div>
+
+                    <div class="resenias-header">
+                        <button id="btn-abrir-modal" class="btn-crear-resenia">
+                            <i class="fa-solid fa-pen"></i>
+                            <span>Crear reseña</span>
+                        </button>
+
+                        <button id="btn-recientes" class="btn-filtro">Recientes</button>
+                        <button id="btn-populares" class="btn-filtro">Populares</button>
+                    </div>
+
+                    <div id="modal-resenia" class="modal hidden">
+                        <div class="modal-contenido">
+                            <h2>Nueva reseña</h2>
+                            <textarea id="input-resenia" placeholder="¿Qué te pareció la película?"></textarea>
+                            <div class="modal-botones">
+                                <button id="btn-cancelar">Cancelar</button>
+                                <button id="btn-publicar">Publicar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    </section>
+
+                <section class="grupos-destacados">
+                    <div class="resenias-titulo">
+                        <h2>Grupos Destacados</h2>
+                    </div>
+                    
+                    <div class="grid-grupos">
+                        
+                        <div class="grupo-card">
+                            <img src="../img/prueba-grupo.png" alt="Grupo Marvel">
+                            <div class="grupo-info">
+                                <h3>MARVEL y DC</h3>
+                                <p>5.2k Miembros</p>
+                                <button class="btn-unirse">Unirse</button>
+                            </div>
+                        </div>
+
+                        <div class="grupo-card">
+                            <img src="../img/prueba-grupo.png" alt="Grupo StarWars">
+                            <div class="grupo-info">
+                                <h3>Fans de StarWars</h3>
+                                <p>3.1k Miembros</p>
+                                <button class="btn-unirse">Unirse</button>
+                            </div>
+                        </div>
+
+                        <div class="grupo-card">
+                            <img src="../img/prueba-grupo.png" alt="Grupo Clasicos">
+                            <div class="grupo-info">
+                                <h3>Cine Clásico</h3>
+                                <p>1.8k Miembros</p>
+                                <button class="btn-unirse">Unirse</button>
+                            </div>
+                        </div>
+
+                        <div class="grupo-card">
+                            <img src="../img/prueba-grupo.png" alt="Grupo Terror">
+                            <div class="grupo-info">
+                                <h3>Club del Terror</h3>
+                                <p>4.6k Miembros</p>
+                                <button class="btn-unirse">Unirse</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </section>
+
+            <div class="sidebar">
+
+                <aside class="buscador-aside">
+                    <div class="widget buscador-widget">
+                        <div class="input-icono">
+                            <i class="fa-solid fa-search"></i>
+                            <input type="text" id="input-busqueda" placeholder="Buscar usuarios o grupos...">
+                        </div>
+                    </div>
+                </aside>
+
+                <aside class="ranking-aside">
+                    <div class="widget">
+                        <h3>TOP Reseñadores</h3>
+                        
+                        <ul class="lista-grupos">
+                            <li>
+                                <img src="../img/perfil prueba.png" alt="Amigo" class="foto-amigo">
+                                <div class="info-grupo">
+                                    <h4><span>LucasMau</span></h4>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="lista-grupos">
+                            <li>
+                                <img src="../img/perfil prueba.png" alt="Amigo" class="foto-amigo">
+                                <div class="info-grupo">
+                                    <h4>Fercho_xX</h4>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="lista-grupos">
+                            <li>
+                                <img src="../img/perfil prueba.png" alt="Amigo" class="foto-amigo">
+                                <div class="info-grupo">
+                                    <h4>FanDelTerror</h4>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script type="module" src="../script/script-pages.js"></script>
+
+</body>
+
+</html>

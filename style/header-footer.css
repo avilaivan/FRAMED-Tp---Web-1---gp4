@@ -1,0 +1,341 @@
+:root {
+    --transicion: 0.3s ease;
+    --color-borde: #7aa887;
+    --color-texto-principal: #ffffff;
+    --color-texto-secundario: #b3b3b3;
+    --fuente-texto: Arial;
+    --color-caja: #333333;
+    --color-boton: #68ff8f;
+}
+
+.logo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 4.375rem;
+    width: auto;
+    display: block;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #68ff8f;
+    border-bottom: 0.125rem solid #68ff8f;
+}
+
+.btn-acceder {
+    text-decoration: none;
+    color: var(--color-texto-principal);
+    padding: 0.8rem 2.5rem;
+    margin: 2rem;
+    background-color: rgba(104, 255, 143, 0.15);
+    border-radius: 0.5rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.nav-links .btn-acceder:hover {
+    background-color: var(--color-boton);
+    transition: var(--transicion);
+    color: var(--color-texto-principal);
+}
+
+.btn-cerrar-sesion {
+    text-decoration: none;
+    color: var(--color-texto-principal);
+    padding: 0.8rem 2.5rem;
+    margin: 2rem;
+    background-color: rgba(255, 77, 77, 0.15); 
+    border-radius: 0.5rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: var(--transicion);
+}
+
+.btn-cerrar-sesion:hover {
+    background-color: #ff4d4d; 
+    color: var(--color-texto-principal);
+    transform: translateY(-2px); 
+}
+
+#check { 
+    display: none; 
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    padding: 1rem 2rem;
+    background-color: #1a1a19;
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none; 
+    cursor: pointer;
+    padding: 0.625rem;
+}
+
+.bar {
+    display: block;
+    width: 1.5625rem;
+    height: 0.1875rem;
+    margin: 0.3125rem 0;
+    background-color: white;
+}
+
+.logos-pago {
+    padding: 1em;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1em;
+    max-width: 50%;
+    margin: 0 auto;
+}
+
+.logos-pago img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    opacity: 50%;
+}
+
+.main-footer {
+    width: 100%;
+    background-color: #1a1a19;
+    padding: 3rem 0;
+    margin-top: 5rem;
+    border-top: 0.0625rem solid #38444c;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+    width: 35%;
+}
+
+.footer-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    width: 25%;
+}
+
+.footer-right {
+    align-items: flex-start;
+    margin-left: 5rem;
+}
+
+.footer-center,
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.footer-center h3,
+.footer-right h3 {
+    color: white;
+    font-family: sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+.footer-right a {
+    font-family: sans-serif;
+    color: #a0a0a0;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+}
+
+.footer-right a:hover {
+    color: #68ff8f;
+}
+
+.footer-logo {
+    height: 3.75rem;
+    width: auto;
+    display: block;
+}
+
+.team-info p {
+    font-family: sans-serif;
+    color: #a0a0a0;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.team-info strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.copyright {
+    color: #808080;
+    margin-top: 0.2rem;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    gap: 1.2rem;
+    padding: 0;
+}
+
+.footer-links a {
+    font-family: sans-serif;
+    color: #a0a0a0;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+}
+
+.footer-links a:hover {
+    color: #68ff8f;
+}
+
+.social-contact {
+    display: flex;
+    flex-direction: row;
+    gap: 0.7rem;
+    align-items: center;
+}
+
+.social-contact a {
+    font-family: sans-serif;
+    color: #a0a0a0;
+    text-decoration: none;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+.social-contact a:hover {
+    color: #68ff8f;
+}
+
+.btn-subir {
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: 0.0625rem;
+    border: 0.0625rem solid #38444c;
+    padding: 0.4rem 0.8rem;
+    border-radius: 45%;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    margin-right: 0.8rem;
+    display: block;
+}
+
+.btn-subir:hover {
+    border-color: #68ff8f;
+    color: #68ff8f;
+    background-color: rgba(104, 255, 143, 0.05);
+}
+
+@media (max-width: 48rem) {
+    header {
+        width: 100%;
+        background-color: #1a1a19;
+    }
+
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        width: 100%;
+        box-sizing: border-box; 
+    }
+
+    .menu-toggle { 
+        display: block; 
+        z-index: 1001; 
+    } 
+
+    .nav-links {
+        display: none; 
+        position: absolute;
+        top: 5rem;
+        left: 0;
+        width: 100%;
+        background-color: #1a1a19;
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 0;
+        z-index: 1000;
+        gap: 1.5rem;
+    }
+
+    #check:checked ~ .nav-links {
+        display: flex;
+    }
+
+    .footer-container {
+        flex-direction: column; 
+        text-align: center;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .footer-left, .footer-center, .footer-right {
+        width: 100%;
+        align-items: center;
+        margin-left: 0; 
+    }
+
+    .footer-links {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .logos-pago {
+        padding: 1em;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 1em;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .logos-pago img {
+        width: 100%;
+        height: auto;
+        border-radius: 0.5rem;
+        opacity: 50%;
+    }
+}

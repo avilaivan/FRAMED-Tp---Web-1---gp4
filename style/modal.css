@@ -1,0 +1,78 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.hidden {
+    display: none !important;
+}
+.modal-box {
+    background-color: var(--color-caja);
+    padding: 2.5rem 2rem;
+    border-radius: 0.75rem;
+    width: 90%;
+    max-width: 25rem;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--color-borde);
+    animation: fadeIn var(--transicion);
+}
+
+.modal-box h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.modal-box p {
+    color: var(--color-texto-principal);
+    margin-bottom: 1.8rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.modal-box button {
+    width: auto;
+    padding: 0.8rem 2.5rem;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(-20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+@media screen and (max-width: 48rem) {
+    .modal-box {
+        padding: 1.875rem 1.25rem;
+    }
+
+    .modal-box h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .modal-box p {
+        font-size: 0.9rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .modal-box button {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+}

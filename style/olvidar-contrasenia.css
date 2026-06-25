@@ -1,0 +1,34 @@
+* {
+    box-sizing: border-box;
+    font-family: 'MiFuente', sans-serif;
+}
+
+@media screen and (max-width: 48rem) {
+    .login-container {
+        padding-top: 3.75rem;
+        padding-bottom: 3.75rem;
+        align-items: flex-start;
+    }
+
+    .caja-login {
+        width: 90%;
+        max-width: 23.75rem;
+        padding: 3rem 3rem;
+        margin: 8.5rem;
+    }
+
+    .caja-login h2 {
+        font-size: 1.25rem;
+        text-align: center;
+    }
+
+    .campo-formulario input {
+        font-size: 0.95rem;
+        padding: 0.9375rem;
+    }
+
+    .btn-loguear {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+}

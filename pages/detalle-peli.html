@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Framed | Detalle de película</title>
+
+    <link rel="shortcut icon" href="../img/favicon - framed.png" type="image/x-icon" />
+
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+
+<body>
+
+<!-- <header>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="../index.html"><img src="../img/LOGO-FRAMED.png" alt="Framed Logo"></a>
+        </div>
+
+        <input type="checkbox" id="check" style="display: none;">
+        
+        <label for="check" class="menu-toggle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+                <span class="bar"></span>
+            </label>
+
+        <ul class="nav-links">
+            <li><a href="../pages/explorar.html">Explorar</a></li>
+            <li><a href="../pages/diario.html">Diario</a></li>
+            <li><a href="../pages/comunidad.html">Comunidad</a></li>
+            <li><a href="../pages/perfil.html">Perfil prueba</a></li>
+            <li class="btn-mobile"><a href="../pages/login.html" class="btn-acceder">Acceder</a></li>
+        </ul>
+    </nav>
+</header> -->
+
+    <main>
+
+        <section class="detalle-peli-container">
+            <div class="columna-video-detalle">
+
+                <video id="video-fondo" autoplay muted loop preload="metadata">
+                    <source id="video-source" src="" type="video/mp4">
+                    Tu navegador no soporta la reproducción de video.
+                </video>
+
+                <div class="info-pelicula">
+
+                    <img id="peli-portada" src="" alt="Portada" class="portada-img">
+
+                    <div class="texto-info">
+                        <h1 id="peli-titulo">Cargando...</h1>
+                        <h4 id="peli-info">Cargando...</h4>
+
+                        <div class="puntaje" id="peli-puntaje">
+                            <!-- Se inyecta por JS -->
+                        </div>
+
+                        <p id="peli-sinopsis">Cargando sinopsis...</p>
+
+                        <h4 id="peli-elenco"></h4>
+                        <h4 id="peli-director"></h4>
+                        
+                        <div class="contenedor-acciones">
+                            <button class="btn-interaccion-img btn-requiere-sesion" title="Me gusta">
+                                <img src="../img/LIKE.png" alt="Me gusta">
+                            </button>
+
+                            <button class="btn-interaccion-img btn-requiere-sesion" title="No me gusta">
+                                <img src="../img/DISLIKE.png" alt="No me gusta">
+                            </button>
+
+                            <button class="btn-interaccion-img btn-requiere-sesion" title="Ver más tarde">
+                                <img src="../img/AGREGAR.png" alt="Ver más tarde">
+                            </button>
+                            
+                            <button class="btn-interaccion-img btn-requiere-sesion" title="Haz tu reseña">
+                                <img src="../img/ICON RESENIA.png" alt="Haz tu reseña">
+                            </button>
+                        </div>
+
+                        <div class="contenedor-plataformas">
+    <h5>Disponible en:</h5>
+    <a href="https://www.netflix.com" target="_blank" rel="noopener noreferrer">
+        <img src="../img/NETFLIX.png" alt="Netflix">
+    </a>
+    <a href="https://www.max.com" target="_blank" rel="noopener noreferrer">
+        <img src="../img/HBO.png" alt="HBO">
+    </a>
+    <a href="https://www.disneyplus.com" target="_blank" rel="noopener noreferrer">
+        <img src="../img/DISNEY.png" alt="Disney+">
+     </a>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="comentarios-seccion">
+            <div class="columna-comentarios2">
+                    <h2>Ultimas Reseñas</h2>
+                    <div class="comentario-card2">
+                        <div class="comentario-header2">
+                            <span class="usuario">@ santi_cine</span>
+                            <span class="estrellas">★★★★★</span>
+                        </div>
+                        <p class="comentario-texto2">La escena del sommelier táctico es pura poesía cinematográfica. El ritmo, la elegancia y cómo preparan al personaje para la acción es de lo mejor del cine moderno.</p>
+                    </div>
+
+                    <div class="comentario-card2">
+                        <div class="comentario-header2">
+                            <span class="usuario">@ marcos_wick</span>
+                            <span class="estrellas">★★★★</span>
+                        </div>
+                        <p class="comentario-texto2">Visualmente es una locura. Keanu Reeves mantiene una presencia brutal y la dirección de fotografía en Roma eleva la película a otro nivel. Imposible aburrirse.</p>
+                    </div>
+
+                    <div class="comentario-card2">
+                        <div class="comentario-header2">
+                            <span class="usuario">@ valen_movies</span>
+                            <span class="estrellas">★★★★</span>
+                        </div>
+                        <p class="comentario-texto2">Una secuela perfecta que expande el lore del hotel Continental de una manera fascinante. Acción coreografiada como si fuera un ballet de fuego.</p>
+                    </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- <footer class="main-footer">
+        <div class="footer-container">
+
+            <div class="footer-left">
+                <a href="../index.html">
+                    <img src="../img/LOGO-FRAMED.png" alt="Framed Logo" class="footer-logo">
+                </a>
+
+                <div class="team-info">
+                    <p>Desarrollado por: Ivan Avila, Valentin Himitian, Uriel Frias, Juan Ibañez</p>
+                    <p class="copyright">&copy; 2026 Framed.</p>
+                </div>
+            </div>
+
+            <div class="footer-center">
+                <h3>Nuestras redes</h3>
+
+                <div class="social-contact">
+                    <a href="https://twitter.com/framed" target="_blank">Twitter</a>
+                    <a href="https://instagram.com/framed" target="_blank">Instagram</a>
+                    <a href="#" target="_blank">TikTok</a>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <h3>Contactanos</h3>
+                <a href="#">Ayuda</a>
+                <a href="./pages/faq.html">Preguntas Frecuentes</a>
+                <a href="https://wa.me/541199999999" target="_blank" class="phone-link">+54 11 9999-9999</a>
+            </div>
+
+            <a href="#" class="btn-subir">&uarr;</a>
+
+        </div>
+    </footer> -->
+    
+    <!-- AQUÍ SE ACTUALIZÓ EL NOMBRE DEL SCRIPT -->
+    
+    <script type="module" src="../script/detalle-peli.js"></script>
+
+</body>
+
+</html>

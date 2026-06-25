@@ -1,0 +1,208 @@
+* {
+    box-sizing: border-box;
+    font-family: 'MiFuente', sans-serif;
+}
+
+/* CSS- INICIAR SESION */
+.login-container {
+    padding-top: 3.75rem;
+    padding-bottom: 7.8125rem;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.caja-login {
+    width: 26.25rem;
+    background-color: var(--color-caja);
+    border-radius: 0.75rem;
+    padding: 1.875rem 2.5rem;
+}
+
+.caja-login h2 {
+    font-size: 2.25rem;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.caja-login .campo-formulario {
+    width: 100%;
+    height: 3.125rem;
+    margin: 1.25rem 0;
+    display: block;
+}
+
+.campo-formulario input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 0.125rem solid var(--color-borde);
+    border-radius: 40px;
+    font-size: 1rem;
+    color: var(--color-texto-principal);
+    padding: 1.25rem 2.8125rem 1.25rem 1.25rem;
+}
+
+.caja-login input::placeholder {
+    color: var(--color-texto-secundario);
+}
+
+.caja-login .recordarme-recuperar-password {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.90625rem;
+    margin: -0.3125rem 0 0.9375rem;
+}
+
+.caja-login .recordarme-recuperar-password label input {
+    accent-color: var(--color-texto-principal);
+    text-decoration: none;
+}
+
+.recordarme-recuperar-password a {
+    text-decoration: none;
+    color: var(--color-texto-principal);
+}
+
+.recordarme-recuperar-password a:hover {
+    text-decoration: underline;
+}
+
+.btn-loguear {
+    display: inline-block;
+    width: 100%;
+    padding: 0.875rem;
+    background-color: var(--color-boton);
+    color: var(--color-texto-principal);
+    border: none;
+    border-radius: 1.5625rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color var(--transicion), transform var(--transicion);
+}
+
+.btn-loguear:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+.login-container .link-registrar {
+    font-size: 0.90625rem;
+    text-align: center;
+    margin: 1.25rem 0 0.9375rem;
+}
+
+.link-registrar p a {
+    color: var(--color-texto-principal);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.link-registrar p a:hover {
+    text-decoration: underline;
+}
+
+p,
+a,
+label,
+input,
+button {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 48rem) {
+
+    /* NAVBAR */
+    .nav-links {
+        display: none;
+        /* oculta el menu*/
+    }
+
+    .navbar {
+        justify-content: space-between;
+        padding: 0.625rem 0.9375rem;
+    }
+
+    .logo img {
+        width: 7.5rem;
+    }
+
+    /* LOGIN */
+    .login-container {
+        padding-top: 1.875rem;
+        padding-bottom: 3.75rem;
+        align-items: flex-start;
+    }
+
+    .caja-login {
+        width: 90%;
+        max-width: 22.5rem;
+        padding: 3rem 2.5rem;
+        margin: 8.5rem;
+    }
+
+    .caja-login h2 {
+        font-size: 1.625rem;
+        letter-spacing: 0.0625rem;
+    }
+
+    .campo-formulario {
+        height: 2.8125rem;
+        margin: 0.9375rem 0;
+    }
+
+    .recordarme-recuperar-password {
+        flex-direction: column;
+        gap: 0.625rem;
+        font-size: 0.8125rem;
+    }
+
+    .btn-loguear {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+
+    /* FOOTER */
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.875rem;
+        padding: 1.875rem 0.9375rem;
+    }
+
+    .footer-left,
+    .footer-center,
+    .footer-right {
+        width: 100%;
+        margin: 0;
+        align-items: center;
+    }
+
+    .footer-left {
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 0.625rem;
+        align-items: center;
+    }
+
+    .social-contact {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .btn-subir {
+        margin-right: 0;
+    }
+}
