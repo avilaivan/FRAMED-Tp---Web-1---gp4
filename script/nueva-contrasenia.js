@@ -1,5 +1,5 @@
 import { REGEX_PASS, manejarModal } from './e-r-modal.js';
-import { validarNuevasContrasenias, guardarNuevaContraseniaEnStorage } from './servicios-password.js';
+import { validarNuevasContrasenias, guardarNuevaContraseniaEnStorage } from './validar-contrasenia.js';
 
 export default function generarNuevaPassword() {
     const contenedor = document.getElementById("contenedor-formularios");
