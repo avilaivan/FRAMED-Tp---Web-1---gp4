@@ -1,45 +1,51 @@
-// Variable simulada para saber si el usuario está logueado. 
-// Cuando conectes tu backend o validación, puedes actualizarla.
-const ESTA_LOGUEADO = false;
+import { baseDeDatosPeliculas } from './data.js';
 
-const baseDeDatosPeliculas = {
-    "dune2": { titulo: "Dune: Parte 2", info: "2 h 46 min | 2024 | Ciencia Ficción", sinopsis: "Paul Atreides se une a Chani y a los Fremen mientras busca venganza contra los conspiradores que destruyeron a su familia.", elenco: "Elenco: Timothée Chalamet, Zendaya", director: "Director: Denis Villeneuve", videoUrl: "../img/video_dune2.mp4", portadaUrl: "../img/dune2.png", estrellas: "★★★★★ <span>(5/5)</span>" },
-    "oppenheimer": { titulo: "Oppenheimer", info: "3 h 0 min | 2023 | Drama / Biografía", sinopsis: "La historia del científico estadounidense J. Robert Oppenheimer y su papel en el desarrollo de la bomba atómica.", elenco: "Elenco: Cillian Murphy, Emily Blunt", director: "Director: Christopher Nolan", videoUrl: "../img/video_oppenheimer.mp4", portadaUrl: "../img/oppenheimer.png", estrellas: "★★★★★ <span>(4.8/5)</span>" },
-    "interstellar": { titulo: "Interestelar", info: "2 h 49 min | 2014 | Ciencia Ficción", sinopsis: "Un equipo de exploradores viaja a través de un agujero de gusano en el espacio en un intento por garantizar la supervivencia de la humanidad.", elenco: "Elenco: Matthew McConaughey, Anne Hathaway", director: "Director: Christopher Nolan", videoUrl: "../img/video_interstellar.mp4", portadaUrl: "../img/interstellar.png", estrellas: "★★★★★ <span>(4.9/5)</span>" },
-    "batman": { titulo: "The Batman", info: "2 h 56 min | 2022 | Acción / Noir", sinopsis: "Cuando el Acertijo, un sádico asesino en serie, comienza a asesinar a figuras políticas clave, Batman se ve obligado a investigar la corrupción oculta.", elenco: "Elenco: Robert Pattinson, Zoë Kravitz", director: "Director: Matt Reeves", videoUrl: "../img/video_batman.mp4", portadaUrl: "../img/batman.png", estrellas: "★★★★☆ <span>(4.2/5)</span>" },
-    "joker": { titulo: "Joker", info: "2 h 2 min | 2019 | Drama", sinopsis: "Arthur Fleck, un comediante fallido marginado y aislado por la sociedad, desciende lentamente a la locura.", elenco: "Elenco: Joaquin Phoenix, Robert De Niro", director: "Director: Todd Phillips", videoUrl: "../img/video_joker.mp4", portadaUrl: "../img/joker.png", estrellas: "★★★★☆ <span>(4.5/5)</span>" }
-};
+const PELIS_CARRUSEL = ["dune2", "oppenheimer", "interstellar", "batman", "joker"];
+const CATEGORIAS = [
+    { titulo: "Top Drama",           peliculas: ["oppenheimer", "joker", "parasite", "barbie"]     },
+    { titulo: "Top Ciencia Ficción", peliculas: ["dune2", "interstellar", "inception", "matrix"]   },
+    { titulo: "Top Acción",          peliculas: ["johnwick4", "madmax", "avengers", "deadpool3"]   },
+    { titulo: "Top Terror",          peliculas: ["conjuro", "alien", "fnaf", "terminator"]         }
+];
 
-let resenias = [];
-const MAX_RESENIAS = 10;
+const USUARIOS_PREDEFINIDOS = [
+    { nombre: "Pablo Gomez",     usuario: "@gomesdoblep22", avatar: "../img/perfil prueba.png" },
+    { nombre: "Lucía Fernández", usuario: "@luciafer123",   avatar: "../img/perfil prueba.png" },
+    { nombre: "Fercho_xX",       usuario: "@fercho99",      avatar: "../img/perfil prueba.png" },
+    { nombre: "FanDelTerror",    usuario: "@terror_lover",  avatar: "../img/perfil prueba.png" }
+];
+
+let resenias      = [];
 let indiceCarrusel = 0;
+const estaLogueado = () => localStorage.getItem("sesionActiva") === "true";
 
 export default function inicializarComunidad() {
+    sembrarUsuariosPredefinidos();
     inicializarCarrusel();
-    cargarReseniasIniciales();
+    cargarReseniasComunidad();
     renderizarResenias();
+    inicializarBuscador();
+    renderizarCategorias();
+    inicializarBorradoComunidad();
+}
 
-    inicializarGrupos();
-    inicializarFiltros();
-    inicializarPublicacion();
-    inicializarScroll();
-    inicializarModalResenias();
+function sembrarUsuariosPredefinidos() {
+    if (!localStorage.getItem("usuarios")) {
+        localStorage.setItem("usuarios", JSON.stringify(USUARIOS_PREDEFINIDOS));
+    }
 }
 
 function inicializarCarrusel() {
-    const track = document.getElementById("carrusel-track");
+    const track   = document.getElementById("carrusel-track");
     const btnPrev = document.getElementById("btn-prev-carrusel");
     const btnNext = document.getElementById("btn-next-carrusel");
-    
-    if(!track || !btnPrev || !btnNext) return;
+    if (!track || !btnPrev || !btnNext) return;
 
-    const peliculasArray = Object.values(baseDeDatosPeliculas);
-
-    peliculasArray.forEach(peli => {
+    PELIS_CARRUSEL.forEach(id => {
+        const peli = baseDeDatosPeliculas[id];
+        if (!peli) return;
         const item = document.createElement("div");
         item.classList.add("carrusel-item");
-        
-        // Estructura adaptada para el formato Hero Horizontal
         item.innerHTML = `
             <video src="${peli.videoUrl}" loop muted autoplay></video>
             <div class="carrusel-overlay"></div>
@@ -56,296 +62,214 @@ function inicializarCarrusel() {
         track.appendChild(item);
     });
 
-    const totalPeliculas = peliculasArray.length;
-
     btnNext.addEventListener("click", () => {
-        if (indiceCarrusel < totalPeliculas - 1) {
+        if (indiceCarrusel < PELIS_CARRUSEL.length - 1) {
             indiceCarrusel++;
-            actualizarPosicionCarrusel(track);
+            track.style.transform = `translateX(${-(indiceCarrusel * 100)}%)`;
         }
     });
-
     btnPrev.addEventListener("click", () => {
         if (indiceCarrusel > 0) {
             indiceCarrusel--;
-            actualizarPosicionCarrusel(track);
+            track.style.transform = `translateX(${-(indiceCarrusel * 100)}%)`;
         }
     });
 }
 
-function actualizarPosicionCarrusel(track) {
-    // Como ahora mostramos 1 elemento al 100% de ancho
-    const desplazamiento = -(indiceCarrusel * 100);
-    track.style.transform = `translateX(${desplazamiento}%)`;
-}
-
-function cargarReseniasIniciales() {
-    const keysPeliculas = Object.keys(baseDeDatosPeliculas);
-    
+function cargarReseniasComunidad() {
     resenias = [
-        {
-            autor: "Pablo Gomez",
-            usuario: "@gomesdoblep22",
-            texto: "¡Una obra maestra absoluta! La cinematografía es increíble y las actuaciones están a otro nivel. No puedo dejar de recomendarla.",
-            likes: 15,
-            dislikes: 1,
-            fecha: Date.now(),
-            pelicula: baseDeDatosPeliculas[keysPeliculas[0]]
-        },
-        {
-            autor: "Lucía Fernández",
-            usuario: "@luciafer123",
-            texto: "Me pareció un poco lenta al principio, pero el final lo compensa todo. Muy buena ambientación.",
-            likes: 8,
-            dislikes: 2,
-            fecha: Date.now() - 100000,
-            pelicula: baseDeDatosPeliculas[keysPeliculas[1]]
-        },
-        {
-            autor: "Fercho_xX",
-            usuario: "@fercho99",
-            texto: "Increíble cómo logran mantener la tensión todo el tiempo. La banda sonora es de lo mejor que he escuchado este año.",
-            likes: 24,
-            dislikes: 0,
-            fecha: Date.now() - 200000,
-            pelicula: baseDeDatosPeliculas[keysPeliculas[2]]
-        }
+        { autor: "Pablo Gomez",     usuario: "@gomesdoblep22", texto: "¡Una obra maestra absoluta!",       likes: 15, dislikes: 1, fecha: Date.now() - 50000,   pelicula: baseDeDatosPeliculas["dune2"]   },
+        { autor: "Lucía Fernández", usuario: "@luciafer123",   texto: "El final lo compensa todo.",        likes: 8,  dislikes: 2, fecha: Date.now() - 100000,  pelicula: baseDeDatosPeliculas["oppenheimer"]   },
+        { autor: "Fercho_xX",       usuario: "@fercho99",      texto: "La banda sonora es la mejor.",      likes: 24, dislikes: 0, fecha: Date.now() - 200000,  pelicula: baseDeDatosPeliculas["interstellar"]  }
     ];
+
+    const misResenas = JSON.parse(localStorage.getItem('misResenas')) || [];
+    const datosPerfil = JSON.parse(localStorage.getItem('datosPerfil')) || { nombre: "Tu Usuario", usuario: localStorage.getItem("nombreUsuarioActivo") || "@usuario" };
+    
+    misResenas.forEach(miRes => {
+        resenias.push({
+            id_peli: miRes.id,
+            autor: datosPerfil.nombre,
+            usuario: datosPerfil.usuario,
+            texto: miRes.texto,
+            likes: 0,
+            fecha: Date.now(), 
+            pelicula: baseDeDatosPeliculas[miRes.id],
+            esMia: true 
+        });
+    });
+
+    resenias.sort((a, b) => b.fecha - a.fecha);
 }
 
 function renderizarResenias() {
     const contenedor = document.getElementById("resenias-container");
-    if(!contenedor) return;
+    if (!contenedor) return;
 
     contenedor.querySelectorAll(".resenia-card").forEach(c => c.remove());
+
+    const estaLog = localStorage.getItem("sesionActiva") === "true";
 
     resenias.forEach(r => {
         const card = document.createElement("article");
         card.classList.add("resenia-card");
 
-        let htmlPelicula = "";
-        if(r.pelicula) {
-            htmlPelicula = `
-                <div class="resenia-header-peli">
+        const esMiaVisual = estaLog && r.esMia;
+        const colorBorde = esMiaVisual ? "border: 1px solid #68ff8f;" : "";
+        const badgeMia = esMiaVisual ? `<span style="color:#68ff8f; font-size:0.8rem; margin-left:10px;">(Tú)</span>` : "";
+        const btnEliminar = esMiaVisual ? `<button class="btn-eliminar-comunidad" data-id="${r.id_peli}" style="border: none; background: transparent; cursor: pointer; color: #ff4d4d; font-size: 1.1rem; margin-left: auto;" title="Eliminar reseña"><i class="fa-solid fa-trash"></i></button>` : "";
+
+        const htmlPeli = r.pelicula ? `
+            <div class="resenia-header-peli">
+                <a href="../pages/detalle-peli.html?id=${r.id_peli || ''}">
                     <img src="${r.pelicula.portadaUrl}" alt="${r.pelicula.titulo}" class="resenia-portada">
-                    <div class="resenia-datos-peli">
-                        <h3>${r.pelicula.titulo}</h3>
-                        <span>${r.pelicula.info}</span>
-                    </div>
+                </a>
+                <div class="resenia-datos-peli">
+                    <h3>${r.pelicula.titulo}</h3>
+                    <span>${r.pelicula.info}</span>
                 </div>
-            `;
-        }
+            </div>` : "";
 
         card.innerHTML = `
-            ${htmlPelicula}
-            <div class="resenia-autor">
-                <img src="../img/perfil prueba.png">
-                <div>
-                    <h4>${r.autor}</h4>
-                    <p>${r.usuario}</p>
+            ${htmlPeli}
+            <div class="resenia-autor" style="${colorBorde}">
+                <img src="../img/perfil prueba.png" alt="avatar">
+                <div style="display:flex; justify-content:space-between; width:100%;">
+                    <div><h4>${r.autor} ${badgeMia}</h4><p>${r.usuario}</p></div>
                 </div>
             </div>
-
             <p class="resenia-texto">${r.texto}</p>
-
-            <div class="resenia-acciones">
-                <button class="btn-like ${r.dioLike ? 'activo' : ''}">
-                    <i class="fa-solid fa-thumbs-up"></i>
-                    <span>${r.likes}</span>
-                </button>
-                <button class="btn-dislike ${r.dioDislike ? 'activo' : ''}">
-                    <i class="fa-solid fa-thumbs-down"></i>
-                    <span>${r.dislikes}</span>
-                </button>
+            <div class="resenia-acciones" style="display:flex; justify-content:space-between;">
+                <button class="btn-like"><i class="fa-solid fa-thumbs-up"></i><span>${r.likes}</span></button>
+                ${btnEliminar}
             </div>
         `;
-
         contenedor.appendChild(card);
     });
 
-    inicializarLikesYDislikes();
-}
-
-function inicializarLikesYDislikes() {
-    const botonesLike = document.querySelectorAll(".btn-like");
-    const botonesDisLike = document.querySelectorAll(".btn-dislike");
-
-    botonesLike.forEach(botonLike => {
-        botonLike.addEventListener("click", () => {
-            if(!ESTA_LOGUEADO) {
-                alert("Debes iniciar sesión para valorar esta reseña.");
-                return;
-            }
-
-            const card = botonLike.closest(".resenia-card");
-            const botonDisLike = card.querySelector(".btn-dislike");
-            const spanLike = botonLike.querySelector("span");
-            const spanDisLike = botonDisLike.querySelector("span");
-
-            if (!botonLike.classList.contains("activo")) {
-                spanLike.textContent = Number(spanLike.textContent) + 1;
-                if (botonDisLike.classList.contains("activo")) {
-                    spanDisLike.textContent = Number(spanDisLike.textContent) - 1;
-                }
-                botonLike.classList.add("activo");
-                botonDisLike.classList.remove("activo");
+    document.querySelectorAll(".btn-like").forEach(btn => {
+        btn.addEventListener("click", () => {
+            if (!estaLog) { alert("Debes iniciar sesión para valorar."); return; }
+            const sL = btn.querySelector("span");
+            if (!btn.classList.contains("activo")) {
+                sL.textContent = +sL.textContent + 1;
+                btn.classList.add("activo");
             } else {
-                spanLike.textContent = Number(spanLike.textContent) - 1;
-                botonLike.classList.remove("activo");
-            }
-        });
-    });
-
-    botonesDisLike.forEach(botonDisLike => {
-        botonDisLike.addEventListener("click", () => {
-            if(!ESTA_LOGUEADO) {
-                alert("Debes iniciar sesión para valorar esta reseña.");
-                return;
-            }
-
-            const card = botonDisLike.closest(".resenia-card");
-            const botonLike = card.querySelector(".btn-like");
-            const spanDisLike = botonDisLike.querySelector("span");
-            const spanLike = botonLike.querySelector("span");
-
-            if (!botonDisLike.classList.contains("activo")) {
-                spanDisLike.textContent = Number(spanDisLike.textContent) + 1;
-                if (botonLike.classList.contains("activo")) {
-                    spanLike.textContent = Number(spanLike.textContent) - 1;
-                }
-                botonDisLike.classList.add("activo");
-                botonLike.classList.remove("activo");
-            } else {
-                spanDisLike.textContent = Number(spanDisLike.textContent) - 1;
-                botonDisLike.classList.remove("activo");
+                sL.textContent = +sL.textContent - 1;
+                btn.classList.remove("activo");
             }
         });
     });
 }
 
-function inicializarGrupos() {
-    const botonUnirse = document.querySelectorAll(".btn-unirse");
-    botonUnirse.forEach(boton => {
-        boton.addEventListener("click", () => {
-            if(!ESTA_LOGUEADO) {
-                alert("Debes iniciar sesión para unirte a un grupo.");
-                return;
+function inicializarBorradoComunidad() {
+    document.body.addEventListener('click', e => {
+        const btnEliminar = e.target.closest('.btn-eliminar-comunidad');
+        if (btnEliminar) {
+            if (confirm("¿Seguro que querés eliminar esta reseña?")) {
+                const idAEliminar = btnEliminar.dataset.id;
+                let misResenas = JSON.parse(localStorage.getItem('misResenas')) || [];
+                misResenas = misResenas.filter(r => r.id !== idAEliminar);
+                localStorage.setItem('misResenas', JSON.stringify(misResenas));
+                
+                cargarReseniasComunidad();
+                renderizarResenias();
             }
-
-            if (boton.textContent.trim() == "Unirse") {
-                boton.textContent = "Unido";
-            } else {
-                boton.textContent = "Unirse";
-            }
-        });
-    });
-}
-
-function inicializarPublicacion() {
-    const btn = document.getElementById("btn-publicar");
-    const input = document.getElementById("input-resenia");
-    const modal = document.getElementById("modal-resenia");
-    const btnAbrir = document.getElementById("btn-abrir-modal");
-
-    if(!btn || !input || !modal) return;
-
-    btnAbrir.addEventListener("click", () => {
-        if(!ESTA_LOGUEADO) {
-            alert("Debes iniciar sesión para crear una reseña.");
-            return;
-        }
-        modal.classList.remove("hidden");
-    });
-
-    btn.addEventListener("click", () => {
-        const texto = input.value.trim();
-        if (!texto) return;
-
-        const keysPeliculas = Object.keys(baseDeDatosPeliculas);
-        const peliAleatoria = baseDeDatosPeliculas[keysPeliculas[Math.floor(Math.random() * keysPeliculas.length)]];
-
-        resenias.unshift({
-            autor: "Mi Usuario",
-            usuario: "@mi_user",
-            texto,
-            likes: 0,
-            dislikes: 0,
-            fecha: Date.now(),
-            pelicula: peliAleatoria
-        });
-
-        input.value = "";
-        modal.classList.add("hidden"); 
-
-        renderizarResenias();
-    });
-}
-
-function inicializarFiltros() {
-    const btnRecientes = document.getElementById("btn-recientes");
-    const btnPopulares = document.getElementById("btn-populares");
-
-    if (!btnRecientes || !btnPopulares) return;
-
-    btnRecientes.addEventListener("click", () => {
-        resenias.sort((a, b) => b.fecha - a.fecha);
-        renderizarResenias();
-    });
-
-    btnPopulares.addEventListener("click", () => {
-        resenias.sort((a, b) => b.likes - a.likes);
-        renderizarResenias();
-    });
-}
-
-function inicializarScroll() {
-    window.addEventListener("scroll", () => {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-            cargarMas();
         }
     });
 }
 
-function cargarMas() {
-    if (resenias.length >= MAX_RESENIAS) return;
+function inicializarBuscador() {
+    const input      = document.getElementById("input-busqueda");
+    const resultados = document.getElementById("resultados-busqueda");
+    if (!input || !resultados) return;
 
-    const keysPeliculas = Object.keys(baseDeDatosPeliculas);
+    input.addEventListener("input", () => {
+        const query = input.value.trim().toLowerCase();
+        resultados.innerHTML = "";
 
-    for (let i = 0; i < 2; i++) {
-        if (resenias.length >= MAX_RESENIAS) {
-            console.log("No hay más reseñas para cargar");
+        if (query.length < 2) { resultados.classList.remove("activo"); return; }
+
+        let usuarios = [];
+        try {
+            const data = localStorage.getItem("usuarios");
+            if (data) usuarios = JSON.parse(data) || [];
+        } catch (e) {}
+
+        try {
+            const perfil = JSON.parse(localStorage.getItem("datosPerfil"));
+            if (perfil && !usuarios.find(u => u.usuario === perfil.usuario)) {
+                usuarios.push(perfil);
+            }
+        } catch (e) {}
+
+        const filtrados = usuarios.filter(u =>
+            (u.nombre  && u.nombre.toLowerCase().includes(query)) ||
+            (u.usuario && u.usuario.toLowerCase().includes(query))
+        );
+
+        resultados.classList.add("activo");
+
+        if (filtrados.length === 0) {
+            resultados.innerHTML = `<p class="sin-resultados-busqueda">Sin resultados para "${input.value}"</p>`;
             return;
         }
 
-        const peliAleatoria = baseDeDatosPeliculas[keysPeliculas[Math.floor(Math.random() * keysPeliculas.length)]];
-
-        resenias.push({
-            autor: "Usuario Nuevo",
-            usuario: "@usuario_nuevo",
-            texto: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus porro sit nobis perferendis quas ab impedit. Commodi laborum quos impedit voluptatum tempora dolores.",
-            likes: Math.floor(Math.random() * 50),
-            dislikes: Math.floor(Math.random() * 10),
-            fecha: Date.now() - Math.floor(Math.random() * 1000000),
-            pelicula: peliAleatoria
+        filtrados.slice(0, 6).forEach(u => {
+            const item = document.createElement("a");
+            item.classList.add("resultado-usuario");
+            item.href = "../pages/perfil.html";
+            item.innerHTML = `
+                <img src="${u.avatar || '../img/perfil prueba.png'}" alt="${u.nombre}">
+                <div class="resultado-info">
+                    <span class="resultado-nombre">${u.nombre || 'Usuario'}</span>
+                    <span class="resultado-user">${u.usuario || ''}</span>
+                </div>
+            `;
+            resultados.appendChild(item);
         });
-    }
-
-    renderizarResenias();
-}
-
-function inicializarModalResenias() {
-    const modal = document.getElementById("modal-resenia");
-    const btnCancelar = document.getElementById("btn-cancelar");
-
-    if(!modal || !btnCancelar) return;
-
-    btnCancelar.addEventListener("click", () => {
-        modal.classList.add("hidden");
     });
 
-    modal.addEventListener("click", (e) => {
-        if (e.target == modal) {
-            modal.classList.add("hidden");
+    document.addEventListener("click", e => {
+        if (!e.target.closest(".buscador-aside")) {
+            resultados.classList.remove("activo");
+            resultados.innerHTML = "";
         }
+    });
+}
+
+function renderizarCategorias() {
+    const contenedor = document.getElementById("categorias-comunidad");
+    if (!contenedor) return;
+
+    CATEGORIAS.forEach(cat => {
+        const bloque = document.createElement("div");
+        bloque.classList.add("categoria-bloque");
+
+        const header = document.createElement("div");
+        header.classList.add("resenias-titulo");
+        header.innerHTML = `<h2>${cat.titulo}</h2>`;
+        bloque.appendChild(header);
+
+        const grid = document.createElement("div");
+        grid.classList.add("grid-categoria-comunidad");
+
+        cat.peliculas.forEach(id => {
+            const peli = baseDeDatosPeliculas[id];
+            if (!peli) return;
+            const card = document.createElement("div");
+            card.classList.add("peli-cat-card");
+            card.innerHTML = `
+                <a href="../pages/detalle-peli.html?id=${id}">
+                    <img src="${peli.portadaUrl}" alt="${peli.titulo}">
+                </a>
+                <h3>${peli.titulo}</h3>
+                <p>${peli.info}</p>
+            `;
+            grid.appendChild(card);
+        });
+
+        bloque.appendChild(grid);
+        contenedor.appendChild(bloque);
     });
 }

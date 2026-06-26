@@ -7,6 +7,7 @@ import generarOlvidarPassword from './olvidar-contrasenia.js';
 import generarNuevaPassword from './nueva-contrasenia.js';
 
 import inicializarComunidad from './comunidad.js';
+import inicializarPerfil from './perfil.js';
 
 document.addEventListener("DOMContentLoaded", () => {
     generarHeader();
@@ -23,5 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     else if (ruta.includes("comunidad") ) {
          inicializarComunidad();
+    }
+    else if (ruta.includes("perfil") ) {
+         inicializarPerfil();
     }
 });

@@ -1130,6 +1130,232 @@ main {
     margin-top: 2rem;
 }
 
+
+/* ======================================================
+   ESTILOS EXCLUSIVOS DE PERFIL
+====================================================== */
+
+/* Listas reducidas (3 portadas + 1 botón Más) */
+.grid-listas-reducida {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.item-portada {
+    width: 130px;
+    height: 195px;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.item-portada:hover {
+    transform: scale(1.05);
+}
+
+.item-portada img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* El botón "+" oscuro sobre la 4ta portada */
+.capa-mas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.item-portada:hover .capa-mas {
+    background: rgba(104, 255, 143, 0.3);
+    color: #68ff8f;
+}
+
+/* Mensaje de estado vacío */
+.mensaje-vacio-perfil {
+    color: #a0a0a0;
+    font-size: 1rem;
+    font-style: italic;
+    padding: 1rem 0;
+}
+
+/* Diseño de la Tarjeta de Reseña (Fijada o en Modal) */
+.tarjeta-resena {
+    display: flex;
+    background-color: #1e1e1e;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    gap: 1.5rem;
+    border-left: 4px solid #68ff8f; /* Detalle verde para diferenciarla */
+}
+
+.tarjeta-resena .poster-peli {
+    width: 100px;
+    height: 150px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+}
+
+/* Modales largos (Para ver todas las pelis o elegir reseña) */
+.modal-largo {
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.grid-lista-completa {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.grid-lista-completa img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.lista-mis-resenas {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.btn-seleccionar-fija {
+    margin-top: 1rem;
+    background-color: #4ec26b;
+    color: #1e1e1e;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-seleccionar-fija:hover {
+    background-color: #68ff8f;
+}
+/* =========================================
+   ESTILOS DEL MODAL (Ventana Flotante)
+   ========================================= */
+
+/* El fondo oscuro que tapa el resto de la página */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que quede por encima de todo el sitio */
+    transition: var(--transicion);
+}
+
+/* Esta es la clase mágica que le vamos a sacar o poner con JavaScript */
+.modal-overlay.oculto {
+    opacity: 0;
+    pointer-events: none; /* Evita que le hagan clics por accidente cuando no se ve */
+}
+
+/* La caja principal del modal */
+.modal-contenido {
+    background-color: var(--color-caja);
+    border: 1px solid var(--color-borde);
+    padding: 1.875rem; /* 30px */
+    border-radius: 0.625rem; /* 10px */
+    width: 90%;
+    max-width: 28.125rem; /* 450px */
+    color: var(--color-texto-principal);
+    font-family: var(--fuente-texto);
+}
+
+/* Contenedor de los 3 avatares */
+.opciones-avatar {
+    display: flex;
+    gap: 0.9375rem; /* 15px */
+    margin-top: 0.625rem; /* 10px */
+    margin-bottom: 1.5625rem; /* 25px */
+    justify-content: center;
+}
+
+/* Estilo para que la imagen sea redonda (tipo HBO Max) */
+.avatar-opcion {
+    width: 5rem; /* 80px */
+    height: 5rem; /* 80px */
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent; /* Los bordes finos se dejan en px */
+    transition: var(--transicion);
+    object-fit: cover;
+}
+
+/* El borde verde que indica cuál avatar elegimos */
+.avatar-opcion.activo, .avatar-opcion:hover {
+    border-color: var(--color-boton);
+}
+
+/* Estilos de los campos para escribir */
+.seccion-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem; /* 20px */
+}
+
+.seccion-input input, .seccion-input textarea {
+    background-color: #222;
+    color: var(--color-texto-principal);
+    border: 1px solid var(--color-borde); /* Los bordes finos se dejan en px */
+    padding: 0.625rem; /* 10px */
+    border-radius: 0.3125rem; /* 5px */
+    margin-top: 0.5rem; /* 8px */
+    font-family: var(--fuente-texto);
+    resize: none; /* Evita que estiren la caja de texto y rompan el diseño */
+}
+
+.modal-botones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.9375rem; /* 15px */
+    margin-top: 0.625rem; /* 10px */
+}
+
+.btn-guardar {
+    background-color: var(--color-boton);
+    color: #000;
+    padding: 0.625rem 1.25rem; /* 10px 20px */
+    border: none;
+    border-radius: 0.3125rem; /* 5px */
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-cancelar {
+    background-color: transparent;
+    color: var(--color-texto-secundario);
+    padding: 0.625rem 1.25rem; /* 10px 20px */
+    border: 1px solid var(--color-texto-secundario); /* Los bordes finos se dejan en px */
+    border-radius: 0.3125rem; /* 5px */
+    cursor: pointer;
+}
+
 /* PRIMER MEDIA QUERY (CELULARES) */
 
 @media (max-width: 48rem) { /* 48rem equivale a 768px*/

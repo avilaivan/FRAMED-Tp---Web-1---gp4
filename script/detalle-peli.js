@@ -1,90 +1,238 @@
-// 1. IMPORTAMOS TUS NUEVOS ARCHIVOS PARA LAS PÁGINAS INTERNAS
+// script/detalle-peli.js
 import generarHeader from './header-pages.js';
 import generarFooter from './footer-pages.js';
-
-// 2. BASE DE DATOS DE LAS 24 PELÍCULAS
-const baseDeDatosPeliculas = {
-    "dune2": { titulo: "Dune: Parte 2", info: "2 h 46 min | 2024 | Ciencia Ficción", sinopsis: "Paul Atreides se une a Chani y a los Fremen mientras busca venganza contra los conspiradores que destruyeron a su familia.", elenco: "Elenco: Timothée Chalamet, Zendaya", director: "Director: Denis Villeneuve", videoUrl: "../img/video_dune2.mp4", portadaUrl: "../img/dune2.png", estrellas: "★★★★★ <span>(5/5)</span>" },
-    "oppenheimer": { titulo: "Oppenheimer", info: "3 h 0 min | 2023 | Drama / Biografía", sinopsis: "La historia del científico estadounidense J. Robert Oppenheimer y su papel en el desarrollo de la bomba atómica.", elenco: "Elenco: Cillian Murphy, Emily Blunt", director: "Director: Christopher Nolan", videoUrl: "../img/video_oppenheimer.mp4", portadaUrl: "../img/oppenheimer.png", estrellas: "★★★★★ <span>(4.8/5)</span>" },
-    "interstellar": { titulo: "Interestelar", info: "2 h 49 min | 2014 | Ciencia Ficción", sinopsis: "Un equipo de exploradores viaja a través de un agujero de gusano en el espacio en un intento por garantizar la supervivencia de la humanidad.", elenco: "Elenco: Matthew McConaughey, Anne Hathaway", director: "Director: Christopher Nolan", videoUrl: "../img/video_interstellar.mp4", portadaUrl: "../img/interstellar.png", estrellas: "★★★★★ <span>(4.9/5)</span>" },
-    "batman": { titulo: "The Batman", info: "2 h 56 min | 2022 | Acción / Noir", sinopsis: "Cuando el Acertijo, un sádico asesino en serie, comienza a asesinar a figuras políticas clave, Batman se ve obligado a investigar la corrupción oculta.", elenco: "Elenco: Robert Pattinson, Zoë Kravitz", director: "Director: Matt Reeves", videoUrl: "../img/video_batman.mp4", portadaUrl: "../img/batman.png", estrellas: "★★★★☆ <span>(4.2/5)</span>" },
-    "joker": { titulo: "Joker", info: "2 h 2 min | 2019 | Drama", sinopsis: "Arthur Fleck, un comediante fallido marginado y aislado por la sociedad, desciende lentamente a la locura.", elenco: "Elenco: Joaquin Phoenix, Robert De Niro", director: "Director: Todd Phillips", videoUrl: "../img/video_joker.mp4", portadaUrl: "../img/joker.png", estrellas: "★★★★☆ <span>(4.5/5)</span>" },
-    "parasite": { titulo: "Parásitos", info: "2 h 12 min | 2019 | Thriller", sinopsis: "La codicia y la discriminación de clases amenazan la relación simbiótica recién formada entre la rica familia Park y la indigente familia Kim.", elenco: "Elenco: Song Kang-ho, Lee Sun-kyun", director: "Director: Bong Joon Ho", videoUrl: "../img/video_parasite.mp4", portadaUrl: "../img/parasite.png", estrellas: "★★★★★ <span>(5/5)</span>" },
-    
-    "avatar2": { titulo: "Avatar: Camino del Agua", info: "3 h 12 min | 2022 | Ciencia Ficción", sinopsis: "Jake Sully vive con su nueva familia formada en el planeta Pandora. Una amenaza familiar regresa para terminar lo que se había iniciado.", elenco: "Elenco: Sam Worthington, Zoe Saldaña", director: "Director: James Cameron", videoUrl: "../img/video_avatar2.mp4", portadaUrl: "../img/avatar2.png", estrellas: "★★★★☆ <span>(4.1/5)</span>" },
-    "avengers": { titulo: "Avengers: Endgame", info: "3 h 1 min | 2019 | Acción", sinopsis: "Después de los devastadores eventos de Infinity War, los Vengadores restantes se reuniendo una vez más para revertir las actions de Thanos.", elenco: "Elenco: Robert Downey Jr., Chris Evans", director: "Director: Anthony y Joe Russo", videoUrl: "../img/video_avengers.mp4", portadaUrl: "../img/avengers.png", estrellas: "★★★★☆ <span>(4.6/5)</span>" },
-    "spiderman": { titulo: "Spider-Man: No Way Home", info: "2 h 28 min | 2021 | Acción", sinopsis: "Con la identidad de Spider-Man ahora revelada, Peter le pide ayuda al Doctor Strange. Cuando un hechizo sale mal, comienzan a aparecer enemigos de otros mundos.", elenco: "Elenco: Tom Holland, Zendaya", director: "Director: Jon Watts", videoUrl: "../img/video_spiderman.mp4", portadaUrl: "../img/spiderman.png", estrellas: "★★★★☆ <span>(4.5/5)</span>" },
-    "topgun": { titulo: "Top Gun: Maverick", info: "2 h 10 min | 2022 | Acción", sinopsis: "Después de más de treinta años de servicio como uno de los mejores aviadores de la Armada, Pete Mitchell está donde pertenece.", elenco: "Elenco: Tom Cruise, Miles Teller", director: "Director: Joseph Kosinski", videoUrl: "../img/video_topgun.mp4", portadaUrl: "../img/topgun.png", estrellas: "★★★★☆ <span>(4.7/5)</span>" },
-    "barbie": { titulo: "Barbie", info: "1 h 54 min | 2023 | Comedia", sinopsis: "Barbie sufre una crisis que la lleva a cuestionar su world y su existencia. Decide viajar al mundo real para descubrir la verdad.", elenco: "Elenco: Margot Robbie, Ryan Gosling", director: "Director: Greta Gerwig", videoUrl: "../img/video_barbie.mp4", portadaUrl: "../img/barbie.png", estrellas: "★★★☆☆ <span>(3.8/5)</span>" },
-    "mario": { titulo: "Super Mario Bros", info: "1 h 32 min | 2023 | Animación", sinopsis: "Un fontanero llamado Mario viaja por un laberinto subterráneo con su hermano, Luigi, intentando salvar a una princesa capturada.", elenco: "Elenco: Chris Pratt, Anya Taylor-Joy", director: "Director: Aaron Horvath", videoUrl: "../img/video_mario.mp4", portadaUrl: "../img/mario.png", estrellas: "★★★★☆ <span>(4.0/5)</span>" },
-    
-    "johnwick4": { titulo: "John Wick 4", info: "2 h 49 min | 2023 | Acción", sinopsis: "John Wick descubre un camino para derrotar a La Mesa Alta. Pero antes de poder ganar su libertad, Wick debe enfrentarse a un nuevo enemigo.", elenco: "Elenco: Keanu Reeves, Donnie Yen", director: "Director: Chad Stahelski", videoUrl: "../img/jhonwick.mp4", portadaUrl: "../img/johnwick4.png", estrellas: "★★★★☆ <span>(4.4/5)</span>" },
-    "deadpool3": { titulo: "Deadpool & Wolverine", info: "2 h 7 min | 2024 | Acción", sinopsis: "Deadpool recibe la visita de la Autoridad de Variación Temporal y es sacado de su vida pacífica para unirse a un Wolverine reacio.", elenco: "Elenco: Ryan Reynolds, Hugh Jackman", director: "Director: Shawn Levy", videoUrl: "../img/video_deadpool3.mp4", portadaUrl: "../img/deadpool3.png", estrellas: "★★★★☆ <span>(4.3/5)</span>" },
-    "madmax": { titulo: "Mad Max: Furia en el Camino", info: "2 h 0 min | 2015 | Acción", sinopsis: "En un desierto post-apocalíptico, una mujer se rebela contra un gobernante tiránico en busca de su patria con la ayuda de un vagabundo.", elenco: "Elenco: Tom Hardy, Charlize Theron", director: "Director: George Miller", videoUrl: "../img/video_madmax.mp4", portadaUrl: "../img/madmax.png", estrellas: "★★★★★ <span>(4.8/5)</span>" },
-    "gladiator": { titulo: "Gladiador", info: "2 h 35 min | 2000 | Épico", sinopsis: "Un ex general romano se propone vengarse del emperador corrupto que asesinó a su familia y lo envió a la esclavitud.", elenco: "Elenco: Russell Crowe, Joaquin Phoenix", director: "Director: Ridley Scott", videoUrl: "../img/video_gladiator.mp4", portadaUrl: "../img/gladiator.png", estrellas: "★★★★★ <span>(4.9/5)</span>" },
-    "matrix": { titulo: "Matrix", info: "2 h 16 min | 1999 | Ciencia Ficción", sinopsis: "Un hacker informático aprende de misteriosos rebeldes sobre la verdadera naturaleza de su realidad y su papel en la guerra.", elenco: "Elenco: Keanu Reeves, Laurence Fishburne", director: "Director: Lana y Lilly Wachowski", videoUrl: "../img/video_matrix.mp4", portadaUrl: "../img/matrix.png", estrellas: "★★★★★ <span>(5/5)</span>" },
-    "inception": { titulo: "El Origen", info: "2 h 28 min | 2010 | Ciencia Ficción", sinopsis: "Un ladrón que roba secretos corporativos mediante el uso de la tecnología de compartir sueños recibe la tarea de plantar una idea.", elenco: "Elenco: Leonardo DiCaprio, Joseph Gordon-Levitt", director: "Director: Christopher Nolan", videoUrl: "../img/video_inception.mp4", portadaUrl: "../img/inception.png", estrellas: "★★★★★ <span>(4.8/5)</span>" },
-
-    "alien": { titulo: "Alien: Romulus", info: "1 h 59 min | 2024 | Terror", sinopsis: "Mientras hurgan en las profundidades de una estación espacial abandonada, un grupo de jóvenes se encuentra cara a cara con lo peor del universo.", elenco: "Elenco: Cailee Spaeny, David Jonsson", director: "Director: Fede Álvarez", videoUrl: "../img/video_alien.mp4", portadaUrl: "../img/alien.png", estrellas: "★★★★☆ <span>(4.1/5)</span>" },
-    "fnaf": { titulo: "Five Nights at Freddy's", info: "1 h 49 min | 2023 | Terror", sinopsis: "Un guardia de seguridad con problemas comienza a trabajar en Freddy Fazbear's Pizza. Su primera noche revela que el turno de noche no será fácil.", elenco: "Elenco: Josh Hutcherson, Piper Rubio", director: "Director: Emma Tammi", videoUrl: "../img/video_fnaf.mp4", portadaUrl: "../img/fnaf.png", estrellas: "★★★☆☆ <span>(3.5/5)</span>" },
-    "conjuro": { titulo: "El Conjuro", info: "1 h 52 min | 2013 | Terror", sinopsis: "Los investigadores paranormales Ed y Lorraine Warren trabajan para ayudar a una familia aterrorizada por una presencia oscura en su granja.", elenco: "Elenco: Patrick Wilson, Vera Farmiga", director: "Director: James Wan", videoUrl: "../img/video_conjuro.mp4", portadaUrl: "../img/conjuro.png", estrellas: "★★★★☆ <span>(4.3/5)</span>" },
-    "terminator": { titulo: "Terminator 2: El Juicio Final", info: "2 h 17 min | 1991 | Acción", sinopsis: "Un cyborg, idéntico al que fracasó en matar a Sarah Connor, debe ahora proteger a su hijo adolescente, John Connor, de un cyborg más avanzado.", elenco: "Elenco: Arnold Schwarzenegger, Linda Hamilton", director: "Director: James Cameron", videoUrl: "../img/video_terminator.mp4", portadaUrl: "../img/terminator.png", estrellas: "★★★★★ <span>(4.9/5)</span>" },
-    "jurassic": { titulo: "Jurassic Park", info: "2 h 7 min | 1993 | Aventura", sinopsis: "Un paleontólogo pragmático viaja a un parque temático casi completo en una isla, para terminar sobreviviendo a los dinosaurios clonados.", elenco: "Elenco: Sam Neill, Laura Dern", director: "Director: Steven Spielberg", videoUrl: "../img/video_jurassic.mp4", portadaUrl: "../img/jurassic.png", estrellas: "★★★★★ <span>(4.8/5)</span>" },
-    "intensamente": { titulo: "Intensamente 2", info: "1 h 36 min | 2024 | Animación", sinopsis: "Riley entra a la pubertad, lo que trae consigo una remodelación de la sede de sus emociones y la llegada de nuevas emociones como Ansiedad.", elenco: "Elenco: Amy Poehler, Maya Hawke", director: "Director: Kelsey Mann", videoUrl: "../img/video_intensamente.mp4", portadaUrl: "../img/intensamente.png", estrellas: "★★★★☆ <span>(4.5/5)</span>" }
-};
+import { baseDeDatosPeliculas } from './data.js';
 
 document.addEventListener("DOMContentLoaded", () => {
-    // 3. SE EJECUTAN TU HEADER Y FOOTER NUEVOS
     generarHeader();
     generarFooter();
 
-    // 4. INYECTAR DATOS DE LA PELÍCULA
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams  = new URLSearchParams(window.location.search);
     const idPelicula = urlParams.get('id');
-    console.log("ID de película detectado en URL:", idPelicula);
 
-    if (idPelicula) {
-        const peli = baseDeDatosPeliculas[idPelicula];
+    // Revisamos si el usuario tiene sesión activa
+    const estaLogueado = localStorage.getItem("sesionActiva") === "true";
 
-        if (peli) {
-            console.log("Película encontrada en BD:", peli.titulo);
-            
-            document.getElementById('peli-titulo').textContent = peli.titulo;
-            document.getElementById('peli-info').textContent = peli.info;
-            document.getElementById('peli-sinopsis').textContent = peli.sinopsis;
-            document.getElementById('peli-elenco').textContent = peli.elenco;
-            document.getElementById('peli-director').textContent = peli.director;
-            document.getElementById('peli-puntaje').innerHTML = peli.estrellas;
-            
-            // Inyectamos la imagen
-            document.getElementById('peli-portada').src = peli.portadaUrl;
-            
-            // SOLUCIÓN AL BUG DEL VIDEO: Se inyecta la ruta directo en la etiqueta <video>
-            const videoElement = document.getElementById('video-fondo');
-            videoElement.src = peli.videoUrl;
-            videoElement.load();
-            
-            console.log("Rutas asignadas - Portada:", peli.portadaUrl, " | Video:", peli.videoUrl);
-        } else {
-            console.warn("El ID no coincide con ninguna película de la base de datos.");
-            document.getElementById('peli-titulo').textContent = "Película no encontrada";
-        }
-    } else {
-        console.warn("No se detectó ningún parámetro ID en la URL.");
+    if (!localStorage.getItem('misMeGustas')) localStorage.setItem('misMeGustas', JSON.stringify([]));
+    if (!localStorage.getItem('misGuardados')) localStorage.setItem('misGuardados', JSON.stringify([]));
+    if (!localStorage.getItem('misResenas')) localStorage.setItem('misResenas', JSON.stringify([]));
+
+    if (!idPelicula) return;
+
+    const peli = baseDeDatosPeliculas[idPelicula];
+    if (!peli) {
+        document.getElementById('peli-titulo').textContent = "Película no encontrada";
+        return;
     }
 
-    // 5. LÓGICA DE INTERACCIONES DE SESIÓN
-    const botonesInteraccion = document.querySelectorAll('.btn-requiere-sesion');
-    botonesInteraccion.forEach(boton => {
-        boton.addEventListener('click', (evento) => {
-            const estaLogueado = localStorage.getItem("sesionActiva") === "true";
-            if (!estaLogueado) {
-                evento.preventDefault(); 
-                alert('Debes iniciar sesión para usar esta función en Framed.');
+    document.getElementById('peli-titulo').textContent    = peli.titulo;
+    document.getElementById('peli-info').textContent      = peli.info;
+    document.getElementById('peli-sinopsis').textContent  = peli.sinopsis;
+    document.getElementById('peli-elenco').textContent    = peli.elenco;
+    document.getElementById('peli-director').textContent  = peli.director;
+    document.getElementById('peli-puntaje').innerHTML     = peli.estrellas;
+    document.getElementById('peli-portada').src           = peli.portadaUrl;
+
+    const videoElement = document.getElementById('video-fondo');
+    videoElement.src = peli.videoUrl;
+    videoElement.load();
+
+    renderizarSeccionComentarios(idPelicula, estaLogueado);
+    configurarInteracciones(idPelicula, peli, estaLogueado);
+
+    // ── RENDERIZAR COMENTARIOS ────────────────────────────────────
+    function renderizarSeccionComentarios(id, sesionActiva) {
+        const contenedor = document.getElementById('contenedor-comentarios-listado');
+        if (!contenedor) return;
+        contenedor.innerHTML = `<h2>Últimas Reseñas</h2>`;
+
+        const resenasTotales = JSON.parse(localStorage.getItem('misResenas')) || [];
+        const resenaPropia   = resenasTotales.find(r => r.id === id);
+        
+        // Buscamos los datos de perfil para cuando no esté logueado
+        const datosPerfil = JSON.parse(localStorage.getItem('datosPerfil')) || { usuario: localStorage.getItem("nombreUsuarioActivo") || "@usuario" };
+
+        // Si existe tu reseña, decidimos CÓMO pintarla
+        if (resenaPropia) {
+            if (sesionActiva) {
+                // 1. SI ESTÁ LOGUEADO: Verde, con tacho de basura e ID único
+                contenedor.innerHTML += `
+                    <div class="comentario-card2" style="background-color: rgba(104, 255, 143, 0.12); border: 1px solid #68ff8f; box-shadow: 0 0 10px rgba(104, 255, 143, 0.2);">
+                        <div class="comentario-header2">
+                            <span class="usuario" style="color:#68ff8f; display:flex; align-items:center; gap:10px;">
+                                <i class="fa-solid fa-user"></i> Tu Reseña
+                                <button id="btn-borrar-mi-resena" style="background:transparent; border:none; cursor:pointer; color:#ff4d4d; font-size:1.1rem; padding: 0 5px;" title="Eliminar reseña">
+                                    <i class="fa-solid fa-trash" style="pointer-events:none;"></i>
+                                </button>
+                            </span>
+                            <span class="estrellas">${resenaPropia.estrellas}</span>
+                        </div>
+                        <p class="comentario-texto2" style="font-style:italic;">"${resenaPropia.texto}"</p>
+                    </div>
+                `;
             } else {
-                boton.style.transform = 'scale(1.2)';
-                setTimeout(() => boton.style.transform = 'scale(1)', 200);
+                // 2. SI NO ESTÁ LOGUEADO: Se ve como una reseña común (gris, con tu arroba, sin tacho)
+                contenedor.innerHTML += `
+                    <div class="comentario-card2">
+                        <div class="comentario-header2">
+                            <span class="usuario">${datosPerfil.usuario}</span>
+                            <span class="estrellas">${resenaPropia.estrellas}</span>
+                        </div>
+                        <p class="comentario-texto2">"${resenaPropia.texto}"</p>
+                    </div>
+                `;
             }
+        }
+
+        // Renderizamos el resto de reseñas estáticas de la comunidad
+        contenedor.innerHTML += `
+            <div class="comentario-card2">
+                <div class="comentario-header2">
+                    <span class="usuario">@ santi_cine</span>
+                    <span class="estrellas">★★★★★</span>
+                </div>
+                <p class="comentario-texto2">La escena del sommelier táctico es pura poesía cinematográfica. El ritmo y la elegancia son de lo mejor del cine moderno.</p>
+            </div>
+            <div class="comentario-card2">
+                <div class="comentario-header2">
+                    <span class="usuario">@ marcos_wick</span>
+                    <span class="estrellas">★★★★</span>
+                </div>
+                <p class="comentario-texto2">Visualmente es una locura. Keanu Reeves mantiene una presencia brutal. Imposible aburrirse.</p>
+            </div>
+        `;
+
+        // ✅ FIX DEL TACHO: Asignamos el clic directamente al botón justo después de crearlo
+        if (sesionActiva && resenaPropia) {
+            const btnBasurero = document.getElementById('btn-borrar-mi-resena');
+            if (btnBasurero) {
+                btnBasurero.addEventListener('click', () => {
+                    if (confirm("¿Estás seguro de que querés eliminar tu reseña? Esta acción no se puede deshacer.")) {
+                        let resenas = JSON.parse(localStorage.getItem('misResenas')) || [];
+                        resenas = resenas.filter(r => r.id !== id);
+                        localStorage.setItem('misResenas', JSON.stringify(resenas));
+                        
+                        // Recargamos los comentarios sin recargar la página entera
+                        renderizarSeccionComentarios(id, sesionActiva);
+                    }
+                });
+            }
+        }
+    }
+
+    // ── INTERACCIONES (LIKE, GUARDAR, MODAL) ──────────────────────
+    function configurarInteracciones(id, peli, sesionActiva) {
+        const btnLike       = document.getElementById('btn-like-peli');
+        const btnGuardar    = document.getElementById('btn-guardar-peli');
+        const btnAbrirModal = document.getElementById('btn-abrir-resena-modal');
+        const modal         = document.getElementById('modal-crear-resena-peli');
+        const btnCancelar   = document.getElementById('btn-cancelar-resena-modal');
+        const btnPublicar   = document.getElementById('btn-publicar-resena-peli');
+        const estrellasClick = document.querySelectorAll('.star-click');
+        const textareaResena = document.getElementById('textarea-nueva-resena');
+
+        let puntajeSeleccionado = 0;
+
+        const verificarSesion = () => {
+            if (!sesionActiva) {
+                alert('Debes iniciar sesión para usar esta función en Framed.');
+                return false;
+            }
+            return true;
+        };
+
+        // Si no hay sesión activa, los botones jamás se pintan de verde
+        let meGustas  = sesionActiva ? (JSON.parse(localStorage.getItem('misMeGustas'))  || []) : [];
+        let guardados = sesionActiva ? (JSON.parse(localStorage.getItem('misGuardados')) || []) : [];
+
+        if (meGustas.includes(id))  btnLike?.style && (btnLike.style.filter    = "drop-shadow(0px 0px 8px #68ff8f) hue-rotate(90deg)");
+        else btnLike?.style && (btnLike.style.filter = "none");
+
+        if (guardados.includes(id)) btnGuardar?.style && (btnGuardar.style.filter = "drop-shadow(0px 0px 8px #68ff8f) hue-rotate(90deg)");
+        else btnGuardar?.style && (btnGuardar.style.filter = "none");
+
+        // EVENTOS CLICK LIKE / GUARDAR
+        btnLike?.addEventListener('click', () => {
+            if (!verificarSesion()) return;
+            let actual = JSON.parse(localStorage.getItem('misMeGustas')) || [];
+            if (!actual.includes(id)) {
+                actual.push(id);
+                btnLike.style.filter = "drop-shadow(0px 0px 8px #68ff8f) hue-rotate(90deg)";
+            } else {
+                actual = actual.filter(item => item !== id);
+                btnLike.style.filter = "none";
+            }
+            localStorage.setItem('misMeGustas', JSON.stringify(actual));
+            animarBoton(btnLike);
         });
-    });
+
+        btnGuardar?.addEventListener('click', () => {
+            if (!verificarSesion()) return;
+            let actual = JSON.parse(localStorage.getItem('misGuardados')) || [];
+            if (!actual.includes(id)) {
+                actual.push(id);
+                btnGuardar.style.filter = "drop-shadow(0px 0px 8px #68ff8f) hue-rotate(90deg)";
+            } else {
+                actual = actual.filter(item => item !== id);
+                btnGuardar.style.filter = "none";
+            }
+            localStorage.setItem('misGuardados', JSON.stringify(actual));
+            animarBoton(btnGuardar);
+        });
+
+        // ABRIR MODAL
+        btnAbrirModal?.addEventListener('click', () => {
+            if (!verificarSesion()) return;
+            const resenas = JSON.parse(localStorage.getItem('misResenas')) || [];
+            if (resenas.find(r => r.id === id)) {
+                alert("Ya dejaste una reseña en esta película. Si querés escribir otra, primero eliminala usando el tacho de basura verde.");
+                return;
+            }
+            puntajeSeleccionado = 0;
+            resetearEstrellas(0);
+            if (textareaResena) textareaResena.value = "";
+            modal?.classList.remove('oculto');
+        });
+
+        btnCancelar?.addEventListener('click', () => modal?.classList.add('oculto'));
+
+        // ESTRELLAS RATING
+        estrellasClick.forEach(star => {
+            star.addEventListener('click', function () {
+                puntajeSeleccionado = parseInt(this.getAttribute('data-value'));
+                resetearEstrellas(puntajeSeleccionado);
+            });
+        });
+
+        function resetearEstrellas(cantidad) {
+            estrellasClick.forEach((s, idx) => {
+                s.classList.toggle('fa-solid',  idx < cantidad);
+                s.classList.toggle('fa-regular', idx >= cantidad);
+            });
+        }
+
+        // PUBLICAR NUEVA RESEÑA
+        btnPublicar?.addEventListener('click', () => {
+            const texto = textareaResena?.value.trim();
+            if (puntajeSeleccionado === 0) { alert('Seleccioná una puntuación en estrellas.'); return; }
+            if (!texto)                    { alert('Escribí un comentario para tu reseña.'); return; }
+
+            const strEstrellas = "★".repeat(puntajeSeleccionado) + "☆".repeat(5 - puntajeSeleccionado);
+            let todasLasResenas = JSON.parse(localStorage.getItem('misResenas')) || [];
+            
+            // Se inserta al principio
+            todasLasResenas.unshift({ id, titulo: peli.titulo, estrellas: strEstrellas, texto });
+            localStorage.setItem('misResenas', JSON.stringify(todasLasResenas));
+
+            modal?.classList.add('oculto');
+            
+            // Renderizamos instantáneamente
+            renderizarSeccionComentarios(id, sesionActiva);
+        });
+
+        function animarBoton(btn) {
+            btn.style.transform = 'scale(1.2)';
+            setTimeout(() => btn.style.transform = 'scale(1)', 200);
+        }
+    }
 });

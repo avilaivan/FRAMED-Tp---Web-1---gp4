@@ -1,9 +1,4 @@
-@font-face {
-    font-family: 'MiFuente';
-    src: url('../font/Coolvetica\ Rg.otf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+
 
 * {
     margin: 0;
@@ -35,6 +30,7 @@ main {
     display: grid;
     grid-template-columns: 3fr 1fr;
     gap: 1.5rem;
+    margin-top: -2rem;
 }
 
 .columna-principal {
@@ -538,4 +534,101 @@ main {
     color: var(--color-texto-principal);
     width: 100%;
     outline: none;
+}
+/* ── BUSCADOR: resultados ───────────────────────────────────────── */
+.buscador-widget h3 {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    color: var(--color-texto-principal);
+}
+
+.resultados-busqueda {
+    display: none;
+    flex-direction: column;
+    margin-top: 0.5rem;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #3a3a3a;
+    border: 1px solid #555;
+}
+
+.resultados-busqueda.activo { display: flex; }
+
+.resultado-usuario {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.9rem;
+    text-decoration: none;
+    border-bottom: 1px solid #4a4a4a;
+    transition: background-color 0.2s ease;
+}
+
+.resultado-usuario:last-child { border-bottom: none; }
+
+.resultado-usuario:hover { background-color: rgba(104, 255, 143, 0.1); }
+
+.resultado-usuario img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.resultado-info { display: flex; flex-direction: column; gap: 0.1rem; }
+.resultado-nombre { font-size: 0.88rem; font-weight: bold; color: var(--color-texto-principal); }
+.resultado-user   { font-size: 0.78rem; color: var(--color-texto-secundario); }
+
+.sin-resultados-busqueda {
+    padding: 0.8rem 1rem;
+    color: var(--color-texto-secundario);
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+/* ── CATEGORÍAS DE PELÍCULAS ────────────────────────────────────── */
+.categorias-comunidad { margin-top: 2.5rem; }
+
+.categoria-bloque { margin-bottom: 2.5rem; 
+}
+
+.grid-categoria-comunidad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.peli-cat-card { display: flex; flex-direction: column; }
+
+.peli-cat-card a img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.peli-cat-card a img:hover { transform: scale(1.05); }
+
+.peli-cat-card h3 {
+    color: var(--color-texto-principal);
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.peli-cat-card p {
+    font-size: 0.78rem;
+    color: var(--color-texto-secundario);
+    margin-top: 0.2rem;
+}
+
+@media (max-width: 48rem) {
+    .grid-categoria-comunidad {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
