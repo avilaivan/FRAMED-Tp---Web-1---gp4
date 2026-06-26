@@ -23,12 +23,35 @@ export default function generarOlvidarPassword() {
         
         const email = document.getElementById("email-recuperacion").value.trim().toLowerCase();
 
+        // 1. Validamos formato
         if (!REGEX_EMAIL.test(email)) {
             return manejarModal("Error en Correo", "Por favor ingresa un correo electrónico válido.");
         }
 
-        manejarModal("¿Quieres continuar?", "Se envió un correo de recuperación a tu bandeja de entrada.", true, () => {
-            window.location.href = "./nueva-contrasenia.html";
-        });
+        // 2. Traemos la lista de usuarios usando tu key "usuariosRegistrados"
+        const usuariosRegistrados = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
+
+        // 3. Verificamos si el email existe
+        const correoExiste = usuariosRegistrados.some(user => user.email === email);
+
+        if (correoExiste) {
+            // El correo SI existe en la base
+            manejarModal(
+                "¿Quieres continuar?", 
+                "Se enviaron las instrucciones a tu correo electrónico.", 
+                true, 
+                () => {
+                    localStorage.setItem("emailEnRecuperacion", email);
+                    window.location.href = "./nueva-contrasenia.html";
+                }
+            );
+        } else {
+            // El correo NO existe en la base
+            manejarModal(
+                "Correo no encontrado", 
+                "No tenemos ninguna cuenta registrada con ese correo electrónico.", 
+                false 
+            );
+        }
     });
 }

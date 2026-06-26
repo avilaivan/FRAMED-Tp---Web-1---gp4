@@ -1,8 +1,17 @@
 import { REGEX_PASS, manejarModal } from './e-r-modal.js';
+import { validarNuevasContrasenias, guardarNuevaContraseniaEnStorage } from './servicios-password.js';
 
 export default function generarNuevaPassword() {
     const contenedor = document.getElementById("contenedor-formularios");
     if (!contenedor) return;
+
+    // Traemos el email que guardamos en la pantalla anterior
+    const emailRecuperacion = localStorage.getItem("emailEnRecuperacion");
+
+    if (!emailRecuperacion) {
+        window.location.href = "./login.html";
+        return;
+    }
 
     contenedor.innerHTML = `
         <form id="form-nueva-pass" class="caja-login">
@@ -29,16 +38,25 @@ export default function generarNuevaPassword() {
         const nuevaPass = document.getElementById("nueva-pass").value.trim();
         const repetirPass = document.getElementById("repetir-pass").value.trim();
 
-        if (!REGEX_PASS.test(nuevaPass)) {
-            return manejarModal("Contraseña Débil", "Debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.");
+        // 1. Usamos la validación modularizada
+        const validacion = validarNuevasContrasenias(nuevaPass, repetirPass);
+        
+        if (!validacion.valido) {
+            // Si falla, mostramos el modal con los datos que nos devolvió la función
+            return manejarModal(validacion.titulo, validacion.mensaje);
         }
 
-        if (nuevaPass !== repetirPass) {
-            return manejarModal("Error", "Las contraseñas no coinciden. Intenta de nuevo.");
-        }
+        // 2. Usamos la función modularizada para pisar el dato en localStorage
+        const cambioExitoso = guardarNuevaContraseniaEnStorage(emailRecuperacion, nuevaPass);
 
-        manejarModal("¡Contraseña Actualizada!", "Tu contraseña se cambió con éxito. Ya puedes iniciar sesión.", true, () => {
-            window.location.href = "./login.html";
-        });
+        if (cambioExitoso) {
+            localStorage.removeItem("emailEnRecuperacion"); // Limpiamos la basura
+            
+            manejarModal("¡Contraseña Actualizada!", "Tu contraseña se cambió con éxito. Ya puedes iniciar sesión.", true, () => {
+                window.location.href = "./login.html";
+            });
+        } else {
+            manejarModal("Error", "No se pudo encontrar la cuenta en la base de datos.");
+        }
     });
 }
